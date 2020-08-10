@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+   constructor(props) {
+     super(props);
+     this.state = {
+       email: '',
+       password: ''
+     }
+   }
+   handleChange = ({ target: { value, id}}) => {
+    var lol = false
+     if(localStorage.getItem(id)!==null){
+        var c = []
+        c.push(value)
+        localStorage.setItem(id, JSON.stringify(c))
+     }else{
+      localStorage.setItem(id, JSON.stringify(value))
+     }
+
+   }
+
+  render() {
+    return (
+      <div>
+        <div className="login_block">
+            <input type="text" id="email" placeholder="email" onChange={this.handleChange} />
+            <input type="password" id="password" placeholder="password" onChange={this.handleChange}/>
+            <input type="submit"/>
+        </div>
+      </div>
+    )
+  }
 }
 
-export default App;
+// window.addEventListener('storage', id => {
+//   console.log(id)
+// }) 
+localStorage.clear()
